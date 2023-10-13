@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/root/sponge/apps/webget.cc" "apps/CMakeFiles/webget.dir/webget.cc.o" "gcc" "apps/CMakeFiles/webget.dir/webget.cc.o.d"
+  "/root/CS144Learn/apps/webget.cc" "apps/CMakeFiles/webget.dir/webget.cc.o" "gcc" "apps/CMakeFiles/webget.dir/webget.cc.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

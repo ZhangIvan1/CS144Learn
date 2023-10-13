@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/root/sponge/tests/byte_stream_construction.cc" "tests/CMakeFiles/byte_stream_construction.dir/byte_stream_construction.cc.o" "gcc" "tests/CMakeFiles/byte_stream_construction.dir/byte_stream_construction.cc.o.d"
+  "/root/CS144Learn/tests/byte_stream_construction.cc" "tests/CMakeFiles/byte_stream_construction.dir/byte_stream_construction.cc.o" "gcc" "tests/CMakeFiles/byte_stream_construction.dir/byte_stream_construction.cc.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

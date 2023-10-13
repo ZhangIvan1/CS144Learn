@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/root/sponge/doctests/socket_dt.cc" "doctests/CMakeFiles/socket_dt.dir/socket_dt.cc.o" "gcc" "doctests/CMakeFiles/socket_dt.dir/socket_dt.cc.o.d"
+  "/root/CS144Learn/doctests/socket_dt.cc" "doctests/CMakeFiles/socket_dt.dir/socket_dt.cc.o" "gcc" "doctests/CMakeFiles/socket_dt.dir/socket_dt.cc.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

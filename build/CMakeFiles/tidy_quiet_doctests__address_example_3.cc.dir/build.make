@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /root/sponge
+CMAKE_SOURCE_DIR = /root/CS144Learn
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /root/sponge/build
+CMAKE_BINARY_DIR = /root/CS144Learn/build
 
 # Utility rule file for tidy_quiet_doctests__address_example_3.cc.
 
@@ -67,7 +67,7 @@ include CMakeFiles/tidy_quiet_doctests__address_example_3.cc.dir/compiler_depend
 include CMakeFiles/tidy_quiet_doctests__address_example_3.cc.dir/progress.make
 
 CMakeFiles/tidy_quiet_doctests__address_example_3.cc:
-	clang-tidy -checks='*,-fuchsia-*,-hicpp-signed-bitwise,-google-build-using-namespace,-android*,-cppcoreguidelines-pro-bounds-pointer-arithmetic,-google-runtime-references,-readability-avoid-const-params-in-decls,-llvm-header-guard' -header-filter=.* -p=/root/sponge/build /root/sponge/doctests/address_example_3.cc 2>/dev/null
+	clang-tidy -checks='*,-fuchsia-*,-hicpp-signed-bitwise,-google-build-using-namespace,-android*,-cppcoreguidelines-pro-bounds-pointer-arithmetic,-google-runtime-references,-readability-avoid-const-params-in-decls,-llvm-header-guard' -header-filter=.* -p=/root/CS144Learn/build /root/CS144Learn/doctests/address_example_3.cc 2>/dev/null
 
 tidy_quiet_doctests__address_example_3.cc: CMakeFiles/tidy_quiet_doctests__address_example_3.cc
 tidy_quiet_doctests__address_example_3.cc: CMakeFiles/tidy_quiet_doctests__address_example_3.cc.dir/build.make
@@ -82,6 +82,6 @@ CMakeFiles/tidy_quiet_doctests__address_example_3.cc.dir/clean:
 .PHONY : CMakeFiles/tidy_quiet_doctests__address_example_3.cc.dir/clean
 
 CMakeFiles/tidy_quiet_doctests__address_example_3.cc.dir/depend:
-	cd /root/sponge/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /root/sponge /root/sponge /root/sponge/build /root/sponge/build /root/sponge/build/CMakeFiles/tidy_quiet_doctests__address_example_3.cc.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /root/CS144Learn/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /root/CS144Learn /root/CS144Learn /root/CS144Learn/build /root/CS144Learn/build /root/CS144Learn/build/CMakeFiles/tidy_quiet_doctests__address_example_3.cc.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/tidy_quiet_doctests__address_example_3.cc.dir/depend
 

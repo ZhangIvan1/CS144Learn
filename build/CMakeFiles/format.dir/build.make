@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /root/sponge
+CMAKE_SOURCE_DIR = /root/CS144Learn
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /root/sponge/build
+CMAKE_BINARY_DIR = /root/CS144Learn/build
 
 # Utility rule file for format.
 
@@ -82,6 +82,6 @@ CMakeFiles/format.dir/clean:
 .PHONY : CMakeFiles/format.dir/clean
 
 CMakeFiles/format.dir/depend:
-	cd /root/sponge/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /root/sponge /root/sponge /root/sponge/build /root/sponge/build /root/sponge/build/CMakeFiles/format.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /root/CS144Learn/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /root/CS144Learn /root/CS144Learn /root/CS144Learn/build /root/CS144Learn/build /root/CS144Learn/build/CMakeFiles/format.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/format.dir/depend
 

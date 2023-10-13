@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /root/sponge
+CMAKE_SOURCE_DIR = /root/CS144Learn
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /root/sponge/build
+CMAKE_BINARY_DIR = /root/CS144Learn/build
 
 # Utility rule file for tidy_doctests__parser_dt.cc.
 
@@ -67,7 +67,7 @@ include CMakeFiles/tidy_doctests__parser_dt.cc.dir/compiler_depend.make
 include CMakeFiles/tidy_doctests__parser_dt.cc.dir/progress.make
 
 CMakeFiles/tidy_doctests__parser_dt.cc:
-	clang-tidy -checks='*,-fuchsia-*,-hicpp-signed-bitwise,-google-build-using-namespace,-android*,-cppcoreguidelines-pro-bounds-pointer-arithmetic,-google-runtime-references,-readability-avoid-const-params-in-decls,-llvm-header-guard' -header-filter=.* -p=/root/sponge/build /root/sponge/doctests/parser_dt.cc
+	clang-tidy -checks='*,-fuchsia-*,-hicpp-signed-bitwise,-google-build-using-namespace,-android*,-cppcoreguidelines-pro-bounds-pointer-arithmetic,-google-runtime-references,-readability-avoid-const-params-in-decls,-llvm-header-guard' -header-filter=.* -p=/root/CS144Learn/build /root/CS144Learn/doctests/parser_dt.cc
 
 tidy_doctests__parser_dt.cc: CMakeFiles/tidy_doctests__parser_dt.cc
 tidy_doctests__parser_dt.cc: CMakeFiles/tidy_doctests__parser_dt.cc.dir/build.make
@@ -82,6 +82,6 @@ CMakeFiles/tidy_doctests__parser_dt.cc.dir/clean:
 .PHONY : CMakeFiles/tidy_doctests__parser_dt.cc.dir/clean
 
 CMakeFiles/tidy_doctests__parser_dt.cc.dir/depend:
-	cd /root/sponge/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /root/sponge /root/sponge /root/sponge/build /root/sponge/build /root/sponge/build/CMakeFiles/tidy_doctests__parser_dt.cc.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /root/CS144Learn/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /root/CS144Learn /root/CS144Learn /root/CS144Learn/build /root/CS144Learn/build /root/CS144Learn/build/CMakeFiles/tidy_doctests__parser_dt.cc.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/tidy_doctests__parser_dt.cc.dir/depend
 

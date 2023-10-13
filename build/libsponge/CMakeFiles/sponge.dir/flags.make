@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/root/sponge/libsponge/util -I/root/sponge/libsponge/tcp_helpers -I/root/sponge/libsponge
+CXX_INCLUDES = -I/root/CS144Learn/libsponge/util -I/root/CS144Learn/libsponge/tcp_helpers -I/root/CS144Learn/libsponge
 
 CXX_FLAGS =  -std=c++17 -g -pedantic -pedantic-errors -Werror -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-qual -Wformat=2 -Weffc++ -Wold-style-cast -O3 -DNDEBUG -std=gnu++17
 

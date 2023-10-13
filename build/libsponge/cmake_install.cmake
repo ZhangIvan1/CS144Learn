@@ -1,4 +1,4 @@
-# Install script for directory: /root/sponge/libsponge
+# Install script for directory: /root/CS144Learn/libsponge
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

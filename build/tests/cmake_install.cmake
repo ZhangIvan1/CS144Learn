@@ -1,4 +1,4 @@
-# Install script for directory: /root/sponge/tests
+# Install script for directory: /root/CS144Learn/tests
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

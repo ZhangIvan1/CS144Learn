@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /root/sponge
+CMAKE_SOURCE_DIR = /root/CS144Learn
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /root/sponge/build
+CMAKE_BINARY_DIR = /root/CS144Learn/build
 
 # Utility rule file for check_lab6.
 
@@ -67,7 +67,7 @@ include CMakeFiles/check_lab6.dir/compiler_depend.make
 include CMakeFiles/check_lab6.dir/progress.make
 
 CMakeFiles/check_lab6:
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/root/sponge/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Testing Lab 6..."
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/root/CS144Learn/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Testing Lab 6..."
 	/usr/bin/ctest --output-on-failure --timeout 10 -R '^arp_|^router_'
 
 check_lab6: CMakeFiles/check_lab6
@@ -83,6 +83,6 @@ CMakeFiles/check_lab6.dir/clean:
 .PHONY : CMakeFiles/check_lab6.dir/clean
 
 CMakeFiles/check_lab6.dir/depend:
-	cd /root/sponge/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /root/sponge /root/sponge /root/sponge/build /root/sponge/build /root/sponge/build/CMakeFiles/check_lab6.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /root/CS144Learn/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /root/CS144Learn /root/CS144Learn /root/CS144Learn/build /root/CS144Learn/build /root/CS144Learn/build/CMakeFiles/check_lab6.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/check_lab6.dir/depend
 
