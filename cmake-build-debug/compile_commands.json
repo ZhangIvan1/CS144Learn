@@ -1,0 +1,116 @@
+[
+{
+  "directory": "/root/CS144Learn/cmake-build-debug",
+  "command": "/usr/bin/c++ -I/root/CS144Learn/libsponge/util -I/root/CS144Learn/libsponge/tcp_helpers -I/root/CS144Learn/libsponge  -std=c++17 -g -pedantic -pedantic-errors -Werror -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-qual -Wformat=2 -Weffc++ -Wold-style-cast -g -ggdb3 -Og -std=gnu++17 -fdiagnostics-color=always -o libsponge/CMakeFiles/sponge.dir/byte_stream.cc.o -c /root/CS144Learn/libsponge/byte_stream.cc",
+  "file": "/root/CS144Learn/libsponge/byte_stream.cc",
+  "output": "libsponge/CMakeFiles/sponge.dir/byte_stream.cc.o"
+},
+{
+  "directory": "/root/CS144Learn/cmake-build-debug",
+  "command": "/usr/bin/c++ -I/root/CS144Learn/libsponge/util -I/root/CS144Learn/libsponge/tcp_helpers -I/root/CS144Learn/libsponge  -std=c++17 -g -pedantic -pedantic-errors -Werror -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-qual -Wformat=2 -Weffc++ -Wold-style-cast -g -ggdb3 -Og -std=gnu++17 -fdiagnostics-color=always -o libsponge/CMakeFiles/sponge.dir/util/address.cc.o -c /root/CS144Learn/libsponge/util/address.cc",
+  "file": "/root/CS144Learn/libsponge/util/address.cc",
+  "output": "libsponge/CMakeFiles/sponge.dir/util/address.cc.o"
+},
+{
+  "directory": "/root/CS144Learn/cmake-build-debug",
+  "command": "/usr/bin/c++ -I/root/CS144Learn/libsponge/util -I/root/CS144Learn/libsponge/tcp_helpers -I/root/CS144Learn/libsponge  -std=c++17 -g -pedantic -pedantic-errors -Werror -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-qual -Wformat=2 -Weffc++ -Wold-style-cast -g -ggdb3 -Og -std=gnu++17 -fdiagnostics-color=always -o libsponge/CMakeFiles/sponge.dir/util/buffer.cc.o -c /root/CS144Learn/libsponge/util/buffer.cc",
+  "file": "/root/CS144Learn/libsponge/util/buffer.cc",
+  "output": "libsponge/CMakeFiles/sponge.dir/util/buffer.cc.o"
+},
+{
+  "directory": "/root/CS144Learn/cmake-build-debug",
+  "command": "/usr/bin/c++ -I/root/CS144Learn/libsponge/util -I/root/CS144Learn/libsponge/tcp_helpers -I/root/CS144Learn/libsponge  -std=c++17 -g -pedantic -pedantic-errors -Werror -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-qual -Wformat=2 -Weffc++ -Wold-style-cast -g -ggdb3 -Og -std=gnu++17 -fdiagnostics-color=always -o libsponge/CMakeFiles/sponge.dir/util/eventloop.cc.o -c /root/CS144Learn/libsponge/util/eventloop.cc",
+  "file": "/root/CS144Learn/libsponge/util/eventloop.cc",
+  "output": "libsponge/CMakeFiles/sponge.dir/util/eventloop.cc.o"
+},
+{
+  "directory": "/root/CS144Learn/cmake-build-debug",
+  "command": "/usr/bin/c++ -I/root/CS144Learn/libsponge/util -I/root/CS144Learn/libsponge/tcp_helpers -I/root/CS144Learn/libsponge  -std=c++17 -g -pedantic -pedantic-errors -Werror -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-qual -Wformat=2 -Weffc++ -Wold-style-cast -g -ggdb3 -Og -std=gnu++17 -fdiagnostics-color=always -o libsponge/CMakeFiles/sponge.dir/util/file_descriptor.cc.o -c /root/CS144Learn/libsponge/util/file_descriptor.cc",
+  "file": "/root/CS144Learn/libsponge/util/file_descriptor.cc",
+  "output": "libsponge/CMakeFiles/sponge.dir/util/file_descriptor.cc.o"
+},
+{
+  "directory": "/root/CS144Learn/cmake-build-debug",
+  "command": "/usr/bin/c++ -I/root/CS144Learn/libsponge/util -I/root/CS144Learn/libsponge/tcp_helpers -I/root/CS144Learn/libsponge  -std=c++17 -g -pedantic -pedantic-errors -Werror -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-qual -Wformat=2 -Weffc++ -Wold-style-cast -g -ggdb3 -Og -std=gnu++17 -fdiagnostics-color=always -o libsponge/CMakeFiles/sponge.dir/util/parser.cc.o -c /root/CS144Learn/libsponge/util/parser.cc",
+  "file": "/root/CS144Learn/libsponge/util/parser.cc",
+  "output": "libsponge/CMakeFiles/sponge.dir/util/parser.cc.o"
+},
+{
+  "directory": "/root/CS144Learn/cmake-build-debug",
+  "command": "/usr/bin/c++ -I/root/CS144Learn/libsponge/util -I/root/CS144Learn/libsponge/tcp_helpers -I/root/CS144Learn/libsponge  -std=c++17 -g -pedantic -pedantic-errors -Werror -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-qual -Wformat=2 -Weffc++ -Wold-style-cast -g -ggdb3 -Og -std=gnu++17 -fdiagnostics-color=always -o libsponge/CMakeFiles/sponge.dir/util/socket.cc.o -c /root/CS144Learn/libsponge/util/socket.cc",
+  "file": "/root/CS144Learn/libsponge/util/socket.cc",
+  "output": "libsponge/CMakeFiles/sponge.dir/util/socket.cc.o"
+},
+{
+  "directory": "/root/CS144Learn/cmake-build-debug",
+  "command": "/usr/bin/c++ -I/root/CS144Learn/libsponge/util -I/root/CS144Learn/libsponge/tcp_helpers -I/root/CS144Learn/libsponge  -std=c++17 -g -pedantic -pedantic-errors -Werror -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-qual -Wformat=2 -Weffc++ -Wold-style-cast -g -ggdb3 -Og -std=gnu++17 -fdiagnostics-color=always -o libsponge/CMakeFiles/sponge.dir/util/tun.cc.o -c /root/CS144Learn/libsponge/util/tun.cc",
+  "file": "/root/CS144Learn/libsponge/util/tun.cc",
+  "output": "libsponge/CMakeFiles/sponge.dir/util/tun.cc.o"
+},
+{
+  "directory": "/root/CS144Learn/cmake-build-debug",
+  "command": "/usr/bin/c++ -I/root/CS144Learn/libsponge/util -I/root/CS144Learn/libsponge/tcp_helpers -I/root/CS144Learn/libsponge  -std=c++17 -g -pedantic -pedantic-errors -Werror -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-qual -Wformat=2 -Weffc++ -Wold-style-cast -g -ggdb3 -Og -std=gnu++17 -fdiagnostics-color=always -o libsponge/CMakeFiles/sponge.dir/util/util.cc.o -c /root/CS144Learn/libsponge/util/util.cc",
+  "file": "/root/CS144Learn/libsponge/util/util.cc",
+  "output": "libsponge/CMakeFiles/sponge.dir/util/util.cc.o"
+},
+{
+  "directory": "/root/CS144Learn/cmake-build-debug",
+  "command": "/usr/bin/c++ -I/root/CS144Learn/libsponge/util -I/root/CS144Learn/libsponge/tcp_helpers -I/root/CS144Learn/libsponge  -std=c++17 -g -pedantic -pedantic-errors -Werror -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-qual -Wformat=2 -Weffc++ -Wold-style-cast -g -ggdb3 -Og -std=gnu++17 -fdiagnostics-color=always -o apps/CMakeFiles/webget.dir/webget.cc.o -c /root/CS144Learn/apps/webget.cc",
+  "file": "/root/CS144Learn/apps/webget.cc",
+  "output": "apps/CMakeFiles/webget.dir/webget.cc.o"
+},
+{
+  "directory": "/root/CS144Learn/cmake-build-debug",
+  "command": "/usr/bin/c++ -I/root/CS144Learn/libsponge/util -I/root/CS144Learn/libsponge/tcp_helpers -I/root/CS144Learn/libsponge  -std=c++17 -g -pedantic -pedantic-errors -Werror -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-qual -Wformat=2 -Weffc++ -Wold-style-cast -g -ggdb3 -Og -std=gnu++17 -fdiagnostics-color=always -o tests/CMakeFiles/spongechecks.dir/byte_stream_test_harness.cc.o -c /root/CS144Learn/tests/byte_stream_test_harness.cc",
+  "file": "/root/CS144Learn/tests/byte_stream_test_harness.cc",
+  "output": "tests/CMakeFiles/spongechecks.dir/byte_stream_test_harness.cc.o"
+},
+{
+  "directory": "/root/CS144Learn/cmake-build-debug",
+  "command": "/usr/bin/c++ -I/root/CS144Learn/libsponge/util -I/root/CS144Learn/libsponge/tcp_helpers -I/root/CS144Learn/libsponge  -std=c++17 -g -pedantic -pedantic-errors -Werror -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-qual -Wformat=2 -Weffc++ -Wold-style-cast -g -ggdb3 -Og -std=gnu++17 -fdiagnostics-color=always -o tests/CMakeFiles/byte_stream_construction.dir/byte_stream_construction.cc.o -c /root/CS144Learn/tests/byte_stream_construction.cc",
+  "file": "/root/CS144Learn/tests/byte_stream_construction.cc",
+  "output": "tests/CMakeFiles/byte_stream_construction.dir/byte_stream_construction.cc.o"
+},
+{
+  "directory": "/root/CS144Learn/cmake-build-debug",
+  "command": "/usr/bin/c++ -I/root/CS144Learn/libsponge/util -I/root/CS144Learn/libsponge/tcp_helpers -I/root/CS144Learn/libsponge  -std=c++17 -g -pedantic -pedantic-errors -Werror -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-qual -Wformat=2 -Weffc++ -Wold-style-cast -g -ggdb3 -Og -std=gnu++17 -fdiagnostics-color=always -o tests/CMakeFiles/byte_stream_one_write.dir/byte_stream_one_write.cc.o -c /root/CS144Learn/tests/byte_stream_one_write.cc",
+  "file": "/root/CS144Learn/tests/byte_stream_one_write.cc",
+  "output": "tests/CMakeFiles/byte_stream_one_write.dir/byte_stream_one_write.cc.o"
+},
+{
+  "directory": "/root/CS144Learn/cmake-build-debug",
+  "command": "/usr/bin/c++ -I/root/CS144Learn/libsponge/util -I/root/CS144Learn/libsponge/tcp_helpers -I/root/CS144Learn/libsponge  -std=c++17 -g -pedantic -pedantic-errors -Werror -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-qual -Wformat=2 -Weffc++ -Wold-style-cast -g -ggdb3 -Og -std=gnu++17 -fdiagnostics-color=always -o tests/CMakeFiles/byte_stream_two_writes.dir/byte_stream_two_writes.cc.o -c /root/CS144Learn/tests/byte_stream_two_writes.cc",
+  "file": "/root/CS144Learn/tests/byte_stream_two_writes.cc",
+  "output": "tests/CMakeFiles/byte_stream_two_writes.dir/byte_stream_two_writes.cc.o"
+},
+{
+  "directory": "/root/CS144Learn/cmake-build-debug",
+  "command": "/usr/bin/c++ -I/root/CS144Learn/libsponge/util -I/root/CS144Learn/libsponge/tcp_helpers -I/root/CS144Learn/libsponge  -std=c++17 -g -pedantic -pedantic-errors -Werror -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-qual -Wformat=2 -Weffc++ -Wold-style-cast -g -ggdb3 -Og -std=gnu++17 -fdiagnostics-color=always -o tests/CMakeFiles/byte_stream_capacity.dir/byte_stream_capacity.cc.o -c /root/CS144Learn/tests/byte_stream_capacity.cc",
+  "file": "/root/CS144Learn/tests/byte_stream_capacity.cc",
+  "output": "tests/CMakeFiles/byte_stream_capacity.dir/byte_stream_capacity.cc.o"
+},
+{
+  "directory": "/root/CS144Learn/cmake-build-debug",
+  "command": "/usr/bin/c++ -I/root/CS144Learn/libsponge/util -I/root/CS144Learn/libsponge/tcp_helpers -I/root/CS144Learn/libsponge  -std=c++17 -g -pedantic -pedantic-errors -Werror -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-qual -Wformat=2 -Weffc++ -Wold-style-cast -g -ggdb3 -Og -std=gnu++17 -fdiagnostics-color=always -o tests/CMakeFiles/byte_stream_many_writes.dir/byte_stream_many_writes.cc.o -c /root/CS144Learn/tests/byte_stream_many_writes.cc",
+  "file": "/root/CS144Learn/tests/byte_stream_many_writes.cc",
+  "output": "tests/CMakeFiles/byte_stream_many_writes.dir/byte_stream_many_writes.cc.o"
+},
+{
+  "directory": "/root/CS144Learn/cmake-build-debug",
+  "command": "/usr/bin/c++ -I/root/CS144Learn/libsponge/util -I/root/CS144Learn/libsponge/tcp_helpers -I/root/CS144Learn/libsponge  -std=c++17 -g -pedantic -pedantic-errors -Werror -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-qual -Wformat=2 -Weffc++ -Wold-style-cast -g -ggdb3 -Og -std=gnu++17 -fdiagnostics-color=always -o doctests/CMakeFiles/address_dt.dir/address_dt.cc.o -c /root/CS144Learn/doctests/address_dt.cc",
+  "file": "/root/CS144Learn/doctests/address_dt.cc",
+  "output": "doctests/CMakeFiles/address_dt.dir/address_dt.cc.o"
+},
+{
+  "directory": "/root/CS144Learn/cmake-build-debug",
+  "command": "/usr/bin/c++ -I/root/CS144Learn/libsponge/util -I/root/CS144Learn/libsponge/tcp_helpers -I/root/CS144Learn/libsponge  -std=c++17 -g -pedantic -pedantic-errors -Werror -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-qual -Wformat=2 -Weffc++ -Wold-style-cast -g -ggdb3 -Og -std=gnu++17 -fdiagnostics-color=always -o doctests/CMakeFiles/parser_dt.dir/parser_dt.cc.o -c /root/CS144Learn/doctests/parser_dt.cc",
+  "file": "/root/CS144Learn/doctests/parser_dt.cc",
+  "output": "doctests/CMakeFiles/parser_dt.dir/parser_dt.cc.o"
+},
+{
+  "directory": "/root/CS144Learn/cmake-build-debug",
+  "command": "/usr/bin/c++ -I/root/CS144Learn/libsponge/util -I/root/CS144Learn/libsponge/tcp_helpers -I/root/CS144Learn/libsponge  -std=c++17 -g -pedantic -pedantic-errors -Werror -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-qual -Wformat=2 -Weffc++ -Wold-style-cast -g -ggdb3 -Og -std=gnu++17 -fdiagnostics-color=always -o doctests/CMakeFiles/socket_dt.dir/socket_dt.cc.o -c /root/CS144Learn/doctests/socket_dt.cc",
+  "file": "/root/CS144Learn/doctests/socket_dt.cc",
+  "output": "doctests/CMakeFiles/socket_dt.dir/socket_dt.cc.o"
+}
+]
