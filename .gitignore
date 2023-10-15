@@ -31,7 +31,9 @@
 *.out
 *.app
 
-/build/*
 
 # Idea
 .idea
+/build
+/.ccls-cache
+
