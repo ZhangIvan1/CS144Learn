@@ -11,6 +11,11 @@
 class StreamReassembler {
   private:
     // Your code here -- add private members as necessary.
+    std::string buffer_string;
+    std::string buffer_check;
+    size_t _reassembled_pt;
+    size_t _end_pt;
+
 
     ByteStream _output;  //!< The reassembled in-order byte stream
     size_t _capacity;    //!< The maximum number of bytes
