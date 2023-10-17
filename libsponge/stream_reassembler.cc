@@ -55,9 +55,8 @@ void StreamReassembler::push_substring(const string &data, const size_t index, c
 size_t StreamReassembler::unassembled_bytes() const {
     size_t bytes_cnt = 0;
     for (size_t i = _reassembled_pt; i != buffer_check.length(); i++)
-        if(buffer_check[i] == '1')
-            bytes_cnt++;
+        if(buffer_check[i] == '1') bytes_cnt++;
     return bytes_cnt;
 }
 
-bool StreamReassembler::empty() const { return _output.eof() && !unassembled_bytes(); }
+bool StreamReassembler::empty() const { return !unassembled_bytes(); }
