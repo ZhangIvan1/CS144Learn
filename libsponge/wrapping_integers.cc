@@ -33,8 +33,9 @@ WrappingInt32 wrap(uint64_t n, WrappingInt32 isn) {
 uint64_t unwrap(WrappingInt32 n, WrappingInt32 isn, uint64_t checkpoint) {
 //    DUMMY_CODE(n, isn, checkpoint);
         uint64_t mod = 1LL << 32;
-        uint64_t absolute_seqno_right = 0, absolute_seqno_left = 0;
         uint64_t absolute_seqno_wrap = n.raw_value() - isn.raw_value();
+        uint64_t absolute_seqno_right = absolute_seqno_wrap;
+        uint64_t absolute_seqno_left = absolute_seqno_wrap;
         while (absolute_seqno_wrap < checkpoint){
             absolute_seqno_wrap+= mod;
             if(absolute_seqno_wrap < checkpoint) absolute_seqno_left = absolute_seqno_wrap;
