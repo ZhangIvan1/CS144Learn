@@ -14,8 +14,11 @@ using namespace std;
 //! \param n The input absolute 64-bit sequence number
 //! \param isn The initial sequence number
 WrappingInt32 wrap(uint64_t n, WrappingInt32 isn) {
-    DUMMY_CODE(n, isn);
-    return WrappingInt32{0};
+//    DUMMY_CODE(n, isn);
+        uint64_t mod = 1LL << 32;
+        WrappingInt32 seqno ((n % mod + isn.raw_value()) % mod);
+        return seqno;
+//    return WrappingInt32{0};
 }
 
 //! Transform a WrappingInt32 into an "absolute" 64-bit sequence number (zero-indexed)
@@ -29,6 +32,15 @@ WrappingInt32 wrap(uint64_t n, WrappingInt32 isn) {
 //! and the other stream runs from the remote TCPSender to the local TCPReceiver and
 //! has a different ISN.
 uint64_t unwrap(WrappingInt32 n, WrappingInt32 isn, uint64_t checkpoint) {
-    DUMMY_CODE(n, isn, checkpoint);
-    return {};
+//    DUMMY_CODE(n, isn, checkpoint);
+        uint64_t mod = 1LL << 32;
+        uint64_t absolute_seqno_right = 0, absolute_seqno_left = 0;
+        uint64_t absolute_seqno_wrap = n.raw_value() - isn.raw_value();
+        while (absolute_seqno_wrap < checkpoint){
+            absolute_seqno_wrap+= mod;
+            if(absolute_seqno_wrap < checkpoint) absolute_seqno_left = absolute_seqno_wrap;
+            if(absolute_seqno_wrap > checkpoint) absolute_seqno_right = absolute_seqno_wrap;
+        }
+        return absolute_seqno_right - checkpoint > checkpoint - absolute_seqno_left ? absolute_seqno_left : absolute_seqno_right;
+//    return uint64_t{0};
 }
