@@ -18,7 +18,6 @@ WrappingInt32 wrap(uint64_t n, WrappingInt32 isn) {
         uint64_t mod = 1LL << 32;
         WrappingInt32 seqno ((n % mod + isn.raw_value()) % mod);
         return seqno;
-//    return WrappingInt32{0};
 }
 
 //! Transform a WrappingInt32 into an "absolute" 64-bit sequence number (zero-indexed)
@@ -42,5 +41,4 @@ uint64_t unwrap(WrappingInt32 n, WrappingInt32 isn, uint64_t checkpoint) {
             if(absolute_seqno_wrap > checkpoint) absolute_seqno_right = absolute_seqno_wrap;
         }
         return absolute_seqno_right - checkpoint > checkpoint - absolute_seqno_left ? absolute_seqno_left : absolute_seqno_right;
-//    return uint64_t{0};
 }
