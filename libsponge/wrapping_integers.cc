@@ -1,5 +1,6 @@
 #include "wrapping_integers.hh"
 
+
 // Dummy implementation of a 32-bit wrapping integer
 
 // For Lab 2, please replace with a real implementation that passes the
@@ -15,7 +16,7 @@ using namespace std;
 //! \param isn The initial sequence number
 WrappingInt32 wrap(uint64_t n, WrappingInt32 isn) {
 //    DUMMY_CODE(n, isn);
-        uint64_t mod = 1LL << 32;
+        const uint64_t mod = 1UL  << 32;
         WrappingInt32 seqno ((n % mod + isn.raw_value()) % mod);
         return seqno;
 }
@@ -32,14 +33,18 @@ WrappingInt32 wrap(uint64_t n, WrappingInt32 isn) {
 //! has a different ISN.
 uint64_t unwrap(WrappingInt32 n, WrappingInt32 isn, uint64_t checkpoint) {
 //    DUMMY_CODE(n, isn, checkpoint);
-        uint64_t mod = 1LL << 32;
+        const uint64_t mod = 1UL << 32;
         uint64_t absolute_seqno_wrap = n.raw_value() - isn.raw_value();
         uint64_t absolute_seqno_right = absolute_seqno_wrap;
         uint64_t absolute_seqno_left = absolute_seqno_wrap;
-        while (absolute_seqno_wrap < checkpoint){
-            absolute_seqno_wrap+= mod;
-            if(absolute_seqno_wrap < checkpoint) absolute_seqno_left = absolute_seqno_wrap;
-            if(absolute_seqno_wrap > checkpoint) absolute_seqno_right = absolute_seqno_wrap;
+        while (absolute_seqno_wrap <= checkpoint){
+            if (UINT64_MAX - absolute_seqno_wrap < mod || absolute_seqno_wrap == checkpoint)
+                return absolute_seqno_wrap;
+            else
+                absolute_seqno_wrap += mod;
+            if (absolute_seqno_wrap < checkpoint) absolute_seqno_left = absolute_seqno_wrap;
+            if (absolute_seqno_wrap > checkpoint) absolute_seqno_right = absolute_seqno_wrap;
         }
-        return absolute_seqno_right - checkpoint > checkpoint - absolute_seqno_left ? absolute_seqno_left : absolute_seqno_right;
+        return absolute_seqno_right - checkpoint > checkpoint - absolute_seqno_left ?
+                          absolute_seqno_left : absolute_seqno_right;
 }
