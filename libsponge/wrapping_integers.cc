@@ -34,17 +34,17 @@ WrappingInt32 wrap(uint64_t n, WrappingInt32 isn) {
 uint64_t unwrap(WrappingInt32 n, WrappingInt32 isn, uint64_t checkpoint) {
 //    DUMMY_CODE(n, isn, checkpoint);
         const uint64_t mod = 1UL << 32;
-        uint64_t absolute_seqno_wrap = n.raw_value() - isn.raw_value();
-        uint64_t absolute_seqno_right = absolute_seqno_wrap;
-        uint64_t absolute_seqno_left = absolute_seqno_wrap;
-        while (absolute_seqno_wrap <= checkpoint){
-            if (UINT64_MAX - absolute_seqno_wrap < mod || absolute_seqno_wrap == checkpoint)
-                return absolute_seqno_wrap;
-            else
-                absolute_seqno_wrap += mod;
-            if (absolute_seqno_wrap < checkpoint) absolute_seqno_left = absolute_seqno_wrap;
-            if (absolute_seqno_wrap > checkpoint) absolute_seqno_right = absolute_seqno_wrap;
+        const uint32_t checkpoint_32 = checkpoint % mod;
+        const uint32_t absolute_n = n.raw_value() - isn.raw_value();
+        if (UINT64_MAX - checkpoint < mod || absolute_n == checkpoint_32)
+            return (checkpoint / mod) * mod + absolute_n;
+        if (checkpoint_32 > absolute_n)
+            return checkpoint_32 - absolute_n > mod - checkpoint_32 + absolute_n ?
+                        ((checkpoint / mod) + 1) * mod + absolute_n : (checkpoint / mod) * mod + absolute_n;
+        else {
+            if (checkpoint < mod) return absolute_n;
+            return absolute_n - checkpoint_32 > mod + checkpoint_32 - absolute_n
+                       ? ((checkpoint / mod) - 1) * mod + absolute_n
+                       : (checkpoint / mod) * mod + absolute_n;
         }
-        return absolute_seqno_right - checkpoint > checkpoint - absolute_seqno_left ?
-                          absolute_seqno_left : absolute_seqno_right;
 }
