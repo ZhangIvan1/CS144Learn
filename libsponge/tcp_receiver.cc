@@ -20,7 +20,7 @@ void TCPReceiver::segment_received(const TCPSegment &seg) {
                                 unwrap(seg.header().seqno, _isn, _reassembler.stream_out().bytes_written() + 1) - 1 +
                                     seg.header().syn,
                                 seg.header().fin);
-    _fin = seg.header().fin;
+    if (seg.header().fin) _fin = seg.header().fin;
 }
 
 optional<WrappingInt32> TCPReceiver::ackno() const {
