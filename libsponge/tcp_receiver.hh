@@ -20,7 +20,7 @@ class TCPReceiver {
     //! The maximum number of bytes we'll store.
     size_t _capacity;
 
-    WrappingInt32 _isn = WrappingInt32(0);
+    WrappingInt32 _isn{0};
     bool _syn = false;
     bool _fin = false;
 
