@@ -89,4 +89,33 @@ class TCPSender {
     //!@}
 };
 
+class Timer {
+  private:
+    bool _is_running;
+    unsigned int _consecutive_retransmissions_times;
+    unsigned int _retransmission_timeout;
+    unsigned int _time_passed;
+
+  public:
+    Timer();
+
+    void start(const unsigned int _initial_retransmission_timeout);
+
+    void stop();
+
+    void reset(const unsigned int _initial_retransmission_timeout);
+
+    void restart();
+
+    void time_update(const unsigned int ms_since_last_tick);
+
+    void slow_start();
+
+    void check_expired(const unsigned int ms_since_last_tick);
+
+    unsigned int consecutive_retransmissions_times() const { return _consecutive_retransmissions_times; }
+
+    bool is_running() const { return _is_running; }
+};
+
 #endif  // SPONGE_LIBSPONGE_TCP_SENDER_HH
