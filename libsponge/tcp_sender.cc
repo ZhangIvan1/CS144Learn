@@ -36,7 +36,7 @@ void TCPSender::fill_window() {
                 _timer.start(_initial_retransmission_timeout);
             }
         }
-        if (_status == SYN_SENT or _status == SYN_ACKED) {
+        if (_status == SYN_SENT or (_status == SYN_ACKED && !_stream.buffer_empty())) {
             size_t payload_len =
                 min(_window_size - bytes_in_flight() - segment.length_in_sequence_space(), TCPConfig::MAX_PAYLOAD_SIZE);
             segment.header().seqno = wrap(_next_seqno, _isn);
@@ -45,10 +45,12 @@ void TCPSender::fill_window() {
                 segment.header().fin = true;
                 _status = FIN_SENT;
             }
+            _segments_out.push(segment);
+            _segments_cache.push(segment);
+            _next_seqno += segment.length_in_sequence_space();
         }
-        _segments_out.push(segment);
-        _segments_cache.push(segment);
-        _next_seqno += segment.length_in_sequence_space();
+        if (!segment.length_in_sequence_space())
+            return;
         fill_size -= segment.length_in_sequence_space();
     }
 }
