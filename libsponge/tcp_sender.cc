@@ -22,22 +22,90 @@ TCPSender::TCPSender(const size_t capacity, const uint16_t retx_timeout, const s
     , _initial_retransmission_timeout{retx_timeout}
     , _stream(capacity) {}
 
-uint64_t TCPSender::bytes_in_flight() const { return {}; }
+uint64_t TCPSender::bytes_in_flight() const { return _next_seqno - _ackno; }
 
-void TCPSender::fill_window() {}
+void TCPSender::fill_window() {
+    size_t fill_size = (_window_size ? _window_size : 1) - bytes_in_flight();
+    while (_status == CLOSED || (fill_size && _status != FIN_SENT)) {
+        TCPSegment segment;
+        if (_status == CLOSED or _status == SYN_SENT) {
+            segment.header().syn = true;
+            segment.header().seqno = _isn;
+            _status = SYN_SENT;
+            if (!_timer.is_running()) {
+                _timer.start(_initial_retransmission_timeout);
+            }
+        }
+        if (_status == SYN_SENT or _status == SYN_ACKED) {
+            size_t payload_len =
+                min(_window_size - bytes_in_flight() - segment.length_in_sequence_space(), TCPConfig::MAX_PAYLOAD_SIZE);
+            segment.header().seqno = wrap(_next_seqno, _isn);
+            segment.payload() = _stream.read(payload_len);
+            if (_stream.eof()) {
+                segment.header().fin = true;
+                _status = FIN_SENT;
+            }
+        }
+        _segments_out.push(segment);
+        _segments_cache.push(segment);
+        _next_seqno += segment.length_in_sequence_space();
+        fill_size -= segment.length_in_sequence_space();
+    }
+}
 
 //! \param ackno The remote receiver's ackno (acknowledgment number)
 //! \param window_size The remote receiver's advertised window size
-void TCPSender::ack_received(const WrappingInt32 ackno, const uint16_t window_size) { DUMMY_CODE(ackno, window_size); }
+void TCPSender::ack_received(const WrappingInt32 ackno, const uint16_t window_size) {
+    uint64_t absoult_ackno = unwrap(ackno, _isn, _ackno);
+    if (absoult_ackno < _ackno || absoult_ackno > _next_seqno) {
+        return;
+    }
+
+    if (_status == SYN_SENT)
+        _status = SYN_ACKED;
+    if (_status == FIN_SENT) {
+        _status = FIN_ACKED;
+        return;
+    }
+    if (_status == SYN_ACKED) {
+        _ackno = absoult_ackno;
+        _window_size = window_size;
+
+        while (!_segments_cache.empty() &&
+               unwrap(_segments_cache.front().header().seqno, _isn, _ackno) < unwrap(ackno, _isn, _ackno)) {
+            _segments_cache.pop();
+        }
+
+        if (_segments_cache.empty())
+            _timer.stop();
+
+        _timer.reset(_initial_retransmission_timeout);
+    }
+}
 
 //! \param[in] ms_since_last_tick the number of milliseconds since the last call to this method
-void TCPSender::tick(const size_t ms_since_last_tick) { DUMMY_CODE(ms_since_last_tick); }
+void TCPSender::tick(const size_t ms_since_last_tick) {
+    if (_timer.check_expired(ms_since_last_tick)) {
+        if (!_window_size)
+            _timer.slow_start();
+        if (consecutive_retransmissions() <= TCPConfig::MAX_RETX_ATTEMPTS) {
+            _segments_out.push(_segments_cache.front());
+            _timer.restart();
+        } else {
+            _status = ERROR;
+        }
+    }
+}
 
-unsigned int TCPSender::consecutive_retransmissions() const { return {}; }
+unsigned int TCPSender::consecutive_retransmissions() const { return _timer.consecutive_retransmissions_times(); }
 
-void TCPSender::send_empty_segment() {}
+void TCPSender::send_empty_segment() {
+    TCPSegment segment;
+    segment.header().seqno = wrap(_next_seqno, _isn);
+    _segments_out.push(segment);
+}
 
-Timer::Timer() {}
+Timer::Timer() = default;
 
 void Timer::start(const unsigned int _initial_retransmission_timeout) {
     _is_running = true;
@@ -64,12 +132,12 @@ void Timer::slow_start() {
     _retransmission_timeout *= 2;
 }
 
-void Timer::check_expired(const unsigned int ms_since_last_tick) {
+bool Timer::check_expired(const unsigned int ms_since_last_tick) {
     if (_is_running) {
         time_update(ms_since_last_tick);
     }
     if (_time_passed >= _retransmission_timeout) {
-        slow_start();
-        restart();
+        return true;
     }
+    return false;
 }

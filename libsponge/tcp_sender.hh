@@ -9,6 +9,35 @@
 #include <functional>
 #include <queue>
 
+class Timer {
+  private:
+    bool _is_running{false};
+    unsigned int _consecutive_retransmissions_times{0};
+    unsigned int _retransmission_timeout{0};
+    unsigned int _time_passed{0};
+
+  public:
+    Timer();
+
+    void start(const unsigned int _initial_retransmission_timeout);
+
+    void stop();
+
+    void reset(const unsigned int _initial_retransmission_timeout);
+
+    void restart();
+
+    void time_update(const unsigned int ms_since_last_tick);
+
+    void slow_start();
+
+    bool check_expired(const unsigned int ms_since_last_tick);
+
+    unsigned int consecutive_retransmissions_times() const { return _consecutive_retransmissions_times; }
+
+    bool is_running() const { return _is_running; }
+};
+
 //! \brief The "sender" part of a TCP implementation.
 
 //! Accepts a ByteStream, divides it up into segments and sends the
@@ -17,6 +46,12 @@
 //! segments if the retransmission timer expires.
 class TCPSender {
   private:
+    Timer _timer{};
+    unsigned int _window_size{0};
+    std::queue<TCPSegment> _segments_cache{};
+    uint64_t _ackno{0};
+    enum _status { CLOSED, SYN_SENT, SYN_ACKED, FIN_SENT, FIN_ACKED, ERROR } _status{CLOSED};
+
     //! our initial sequence number, the number for our SYN.
     WrappingInt32 _isn;
 
@@ -87,35 +122,6 @@ class TCPSender {
     //! \brief relative seqno for the next byte to be sent
     WrappingInt32 next_seqno() const { return wrap(_next_seqno, _isn); }
     //!@}
-};
-
-class Timer {
-  private:
-    bool _is_running;
-    unsigned int _consecutive_retransmissions_times;
-    unsigned int _retransmission_timeout;
-    unsigned int _time_passed;
-
-  public:
-    Timer();
-
-    void start(const unsigned int _initial_retransmission_timeout);
-
-    void stop();
-
-    void reset(const unsigned int _initial_retransmission_timeout);
-
-    void restart();
-
-    void time_update(const unsigned int ms_since_last_tick);
-
-    void slow_start();
-
-    void check_expired(const unsigned int ms_since_last_tick);
-
-    unsigned int consecutive_retransmissions_times() const { return _consecutive_retransmissions_times; }
-
-    bool is_running() const { return _is_running; }
 };
 
 #endif  // SPONGE_LIBSPONGE_TCP_SENDER_HH
