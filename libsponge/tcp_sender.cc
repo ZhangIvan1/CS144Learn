@@ -72,11 +72,12 @@ void TCPSender::ack_received(const WrappingInt32 ackno, const uint16_t window_si
     while (!_segments_cache.empty() &&
            unwrap(_segments_cache.front().header().seqno, _isn, _ackno) < unwrap(ackno, _isn, _ackno) && !_segments_cache.front().header().fin) {
         _segments_cache.pop();
-        if (_status == FIN_SENT && _ackno == _next_seqno) {
-            _status = FIN_ACKED;
-            _segments_cache.pop();
-        }
         _timer.reset(_initial_retransmission_timeout);
+    }
+
+    if (_status == FIN_SENT && _ackno == _next_seqno) {
+        _status = FIN_ACKED;
+        _segments_cache.pop();
     }
 
     if (_segments_cache.empty())
@@ -87,7 +88,7 @@ void TCPSender::ack_received(const WrappingInt32 ackno, const uint16_t window_si
 void TCPSender::tick(const size_t ms_since_last_tick) {
     if (_status == SYN_SENT or _status == SYN_ACKED or _status == FIN_SENT)
         if (_timer.check_expired(ms_since_last_tick)) {
-            if (_window_size || bytes_in_flight())
+            if (_window_size || _status == SYN_SENT)
                 _timer.exponential_backoff();
             if (consecutive_retransmissions() <= TCPConfig::MAX_RETX_ATTEMPTS) {
                 _segments_out.push(_segments_cache.front());
