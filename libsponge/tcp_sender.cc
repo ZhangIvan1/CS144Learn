@@ -32,22 +32,22 @@ void TCPSender::fill_window() {
             segment.header().syn = true;
             segment.header().seqno = _isn;
             _status = SYN_SENT;
-            if (!_timer.is_running()) {
-                _timer.start(_initial_retransmission_timeout);
-            }
         }
-        if (_status == SYN_SENT or (_status == SYN_ACKED && !_stream.buffer_empty())) {
+        if (_status == SYN_SENT or (_status == SYN_ACKED && (!_stream.buffer_empty() or _stream.eof()))) {
             size_t payload_len =
-                min(_window_size - bytes_in_flight() - segment.length_in_sequence_space(), TCPConfig::MAX_PAYLOAD_SIZE);
+                min(fill_size, TCPConfig::MAX_PAYLOAD_SIZE);
             segment.header().seqno = wrap(_next_seqno, _isn);
             segment.payload() = _stream.read(payload_len);
-            if (_stream.eof()) {
+            if (_stream.eof() && fill_size-segment.length_in_sequence_space()) {
                 segment.header().fin = true;
                 _status = FIN_SENT;
             }
             _segments_out.push(segment);
             _segments_cache.push(segment);
             _next_seqno += segment.length_in_sequence_space();
+        }
+        if (!_timer.is_running()) {
+            _timer.start(_initial_retransmission_timeout);
         }
         if (!segment.length_in_sequence_space())
             return;
@@ -63,40 +63,39 @@ void TCPSender::ack_received(const WrappingInt32 ackno, const uint16_t window_si
         return;
     }
 
+    _ackno = absoult_ackno;
+    _window_size = window_size;
+
     if (_status == SYN_SENT)
         _status = SYN_ACKED;
-    if (_status == FIN_SENT) {
-        _status = FIN_ACKED;
-        return;
-    }
-    if (_status == SYN_ACKED) {
-        _ackno = absoult_ackno;
-        _window_size = window_size;
 
-        while (!_segments_cache.empty() &&
-               unwrap(_segments_cache.front().header().seqno, _isn, _ackno) < unwrap(ackno, _isn, _ackno)) {
+    while (!_segments_cache.empty() &&
+           unwrap(_segments_cache.front().header().seqno, _isn, _ackno) < unwrap(ackno, _isn, _ackno) && !_segments_cache.front().header().fin) {
+        _segments_cache.pop();
+        if (_status == FIN_SENT && _ackno == _next_seqno) {
+            _status = FIN_ACKED;
             _segments_cache.pop();
         }
-
-        if (_segments_cache.empty())
-            _timer.stop();
-
         _timer.reset(_initial_retransmission_timeout);
     }
+
+    if (_segments_cache.empty())
+        _timer.stop();
 }
 
 //! \param[in] ms_since_last_tick the number of milliseconds since the last call to this method
 void TCPSender::tick(const size_t ms_since_last_tick) {
-    if (_timer.check_expired(ms_since_last_tick)) {
-        if (!_window_size)
-            _timer.slow_start();
-        if (consecutive_retransmissions() <= TCPConfig::MAX_RETX_ATTEMPTS) {
-            _segments_out.push(_segments_cache.front());
-            _timer.restart();
-        } else {
-            _status = ERROR;
+    if (_status == SYN_SENT or _status == SYN_ACKED or _status == FIN_SENT)
+        if (_timer.check_expired(ms_since_last_tick)) {
+            if (_window_size || bytes_in_flight())
+                _timer.exponential_backoff();
+            if (consecutive_retransmissions() <= TCPConfig::MAX_RETX_ATTEMPTS) {
+                _segments_out.push(_segments_cache.front());
+                _timer.restart();
+            } else {
+                _status = ERROR;
+            }
         }
-    }
 }
 
 unsigned int TCPSender::consecutive_retransmissions() const { return _timer.consecutive_retransmissions_times(); }
@@ -113,6 +112,7 @@ void Timer::start(const unsigned int _initial_retransmission_timeout) {
     _is_running = true;
     _consecutive_retransmissions_times = 0;
     _retransmission_timeout = _initial_retransmission_timeout;
+    _time_passed = 0;
 }
 
 void Timer::stop() { _is_running = false; }
@@ -129,8 +129,8 @@ void Timer::time_update(const unsigned int ms_since_last_tick) {
         _time_passed += ms_since_last_tick;
 }
 
-void Timer::slow_start() {
-    _consecutive_retransmissions_times = 0;
+void Timer::exponential_backoff() {
+    _consecutive_retransmissions_times++;
     _retransmission_timeout *= 2;
 }
 

@@ -29,7 +29,7 @@ class Timer {
 
     void time_update(const unsigned int ms_since_last_tick);
 
-    void slow_start();
+    void exponential_backoff();
 
     bool check_expired(const unsigned int ms_since_last_tick);
 
