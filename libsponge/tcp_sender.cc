@@ -28,7 +28,7 @@ void TCPSender::fill_window() {
     size_t fill_size = (_window_size ? _window_size : 1) - bytes_in_flight();
     while (_status == CLOSED || (fill_size && _status != FIN_SENT)) {
         TCPSegment segment;
-        if (_status == CLOSED or _status == SYN_SENT) {
+        if (_status == CLOSED) {
             segment.header().syn = true;
             segment.header().seqno = _isn;
             _status = SYN_SENT;
