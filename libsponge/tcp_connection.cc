@@ -60,6 +60,13 @@ void TCPConnection::tick(const size_t ms_since_last_tick) {
         return;
 
     _time_passed += ms_since_last_tick;
+    _sender.tick(ms_since_last_tick);
+
+    if (_sender.consecutive_retransmissions() > TCPConfig::MAX_RETX_ATTEMPTS) {
+        sent_rst();
+    }
+
+
 }
 
 void TCPConnection::end_input_stream() {
