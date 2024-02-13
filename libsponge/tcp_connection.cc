@@ -27,15 +27,15 @@ void TCPConnection::segment_received(const TCPSegment &seg) {
 bool TCPConnection::active() const { return _statue; }
 
 size_t TCPConnection::write(const string &data) {
-    DUMMY_CODE(data);
-    return {};
+    if (!_statue) return {};
+    return _sender.stream_in().write(data);
 }
 
 //! \param[in] ms_since_last_tick number of milliseconds since the last call to this method
 void TCPConnection::tick(const size_t ms_since_last_tick) {
+    if (!_statue) return;
+
     _time_passed += ms_since_last_tick;
-
-
 }
 
 void TCPConnection::end_input_stream() {}
