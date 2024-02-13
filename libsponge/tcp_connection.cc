@@ -53,10 +53,21 @@ TCPConnection::~TCPConnection() {
             cerr << "Warning: Unclean shutdown of TCPConnection\n";
 
             // Your code here: need to send a RST segment to the peer
+            sent_rst();
         }
     } catch (const exception &e) {
         std::cerr << "Exception destructing TCP FSM: " << e.what() << std::endl;
     }
 }
+
+void TCPConnection::sent_rst() {
+    _statue = false;
+    TCPSegment rstSeg;
+    rstSeg.header().rst = true;
+    _sender.send_empty_segment(rstSeg);
+    _sender.stream_in().set_error();
+    _receiver.stream_out().set_error();
+}
+
 
 
