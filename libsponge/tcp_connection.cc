@@ -41,8 +41,10 @@ void TCPConnection::tick(const size_t ms_since_last_tick) {
 void TCPConnection::end_input_stream() {}
 
 void TCPConnection::connect() {
-    if (!_sender.is_syn_avaliable())
+    if (!_statue && _sender.is_syn_avaliable()) {
+        _statue = true;
         _sender.fill_window();
+    }
 }
 
 TCPConnection::~TCPConnection() {
