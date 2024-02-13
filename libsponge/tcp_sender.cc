@@ -103,6 +103,7 @@ unsigned int TCPSender::consecutive_retransmissions() const { return _timer.cons
 
 void TCPSender::send_empty_segment(TCPSegment segment) {
     segment.header().seqno = wrap(_next_seqno, _isn);
+    segment.header().win = _window_size;
     _segments_out.push(segment);
 }
 

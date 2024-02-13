@@ -26,6 +26,8 @@ class TCPConnection {
     bool _statue{false};
 
     void sent_rst();
+    void set_error();
+    void response_to_keepalive(TCPSegment seg);
 
   public:
     //! \name "Input" interface for the writer
