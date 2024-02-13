@@ -32,11 +32,18 @@ size_t TCPConnection::write(const string &data) {
 }
 
 //! \param[in] ms_since_last_tick number of milliseconds since the last call to this method
-void TCPConnection::tick(const size_t ms_since_last_tick) { DUMMY_CODE(ms_since_last_tick); }
+void TCPConnection::tick(const size_t ms_since_last_tick) {
+    _time_passed += ms_since_last_tick;
+
+
+}
 
 void TCPConnection::end_input_stream() {}
 
-void TCPConnection::connect() {}
+void TCPConnection::connect() {
+    if (!_sender.is_syn_avaliable())
+        _sender.fill_window();
+}
 
 TCPConnection::~TCPConnection() {
     try {
@@ -49,3 +56,5 @@ TCPConnection::~TCPConnection() {
         std::cerr << "Exception destructing TCP FSM: " << e.what() << std::endl;
     }
 }
+
+
