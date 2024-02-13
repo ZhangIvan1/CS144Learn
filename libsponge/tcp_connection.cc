@@ -18,11 +18,13 @@ size_t TCPConnection::bytes_in_flight() const { return _sender.bytes_in_flight()
 
 size_t TCPConnection::unassembled_bytes() const { return _receiver.unassembled_bytes(); }
 
-size_t TCPConnection::time_since_last_segment_received() const { return {}; }
+size_t TCPConnection::time_since_last_segment_received() const { return _time_passed - _time_last_segment_received; }
 
-void TCPConnection::segment_received(const TCPSegment &seg) { DUMMY_CODE(seg); }
+void TCPConnection::segment_received(const TCPSegment &seg) {
+    _time_last_segment_received = _time_passed;
+}
 
-bool TCPConnection::active() const { return {}; }
+bool TCPConnection::active() const { return _statue; }
 
 size_t TCPConnection::write(const string &data) {
     DUMMY_CODE(data);
