@@ -26,6 +26,7 @@ uint64_t TCPSender::bytes_in_flight() const { return _next_seqno - _ackno; }
 
 void TCPSender::fill_window() {
     size_t fill_size = (_window_size ? _window_size : 1) - bytes_in_flight();
+
     while (_status == CLOSED || (fill_size && _status != FIN_SENT)) {
         TCPSegment segment;
         if (_status == CLOSED) {
@@ -33,12 +34,13 @@ void TCPSender::fill_window() {
             segment.header().seqno = _isn;
             _status = SYN_SENT;
         }
+
         if (_status == SYN_SENT or (_status == SYN_ACKED && (!_stream.buffer_empty() or _stream.eof()))) {
-            size_t payload_len =
-                min(fill_size, TCPConfig::MAX_PAYLOAD_SIZE);
+            size_t payload_len = min(fill_size, TCPConfig::MAX_PAYLOAD_SIZE);
             segment.header().seqno = wrap(_next_seqno, _isn);
+            segment.header().win = _window_size;
             segment.payload() = _stream.read(payload_len);
-            if (_stream.eof() && fill_size-segment.length_in_sequence_space()) {
+            if (_stream.eof() && fill_size - segment.length_in_sequence_space()) {
                 segment.header().fin = true;
                 _status = FIN_SENT;
             }
@@ -46,11 +48,14 @@ void TCPSender::fill_window() {
             _segments_cache.push(segment);
             _next_seqno += segment.length_in_sequence_space();
         }
+
         if (!_timer.is_running()) {
             _timer.start(_initial_retransmission_timeout);
         }
+
         if (!segment.length_in_sequence_space())
             return;
+
         fill_size -= segment.length_in_sequence_space();
     }
 }
@@ -70,7 +75,8 @@ void TCPSender::ack_received(const WrappingInt32 ackno, const uint16_t window_si
         _status = SYN_ACKED;
 
     while (!_segments_cache.empty() &&
-           unwrap(_segments_cache.front().header().seqno, _isn, _ackno) < unwrap(ackno, _isn, _ackno) && !_segments_cache.front().header().fin) {
+           unwrap(_segments_cache.front().header().seqno, _isn, _ackno) < unwrap(ackno, _isn, _ackno) &&
+           !_segments_cache.front().header().fin) {
         _segments_cache.pop();
         _timer.reset(_initial_retransmission_timeout);
     }

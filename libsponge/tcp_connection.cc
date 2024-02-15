@@ -63,21 +63,20 @@ void TCPConnection::tick(const size_t ms_since_last_tick) {
     _sender.tick(ms_since_last_tick);
 
     if (_sender.consecutive_retransmissions() > TCPConfig::MAX_RETX_ATTEMPTS) {
-        sent_rst();
+        send_rst();
+        return;
     }
-
-
 }
 
 void TCPConnection::end_input_stream() {
     _sender.stream_in().end_input();
-    _sender.fill_window();
+    send_out();
 }
 
 void TCPConnection::connect() {
     if (!_statue && _sender.is_syn_avaliable()) {
         _statue = true;
-        _sender.fill_window();
+        send_out();
     }
 }
 
@@ -87,7 +86,7 @@ TCPConnection::~TCPConnection() {
             cerr << "Warning: Unclean shutdown of TCPConnection\n";
 
             // Your code here: need to send a RST segment to the peer
-            sent_rst();
+            send_rst();
         }
     } catch (const exception &e) {
         std::cerr << "Exception destructing TCP FSM: " << e.what() << std::endl;
@@ -99,7 +98,7 @@ void TCPConnection::set_error() {
     _receiver.stream_out().set_error();
 }
 
-void TCPConnection::sent_rst() {
+void TCPConnection::send_rst() {
     _statue = false;
     TCPSegment rstSeg;
     rstSeg.header().rst = true;
@@ -112,5 +111,13 @@ void TCPConnection::response_to_keepalive(TCPSegment seg) {
         seg.header().seqno == _receiver.ackno().value() - 1) {
         TCPSegment keepaliveSeg;
         _sender.send_empty_segment(keepaliveSeg);
+    }
+}
+
+void TCPConnection::send_out() {
+    _sender.fill_window();
+    while (!_sender.segments_out().empty()) {
+        _segments_out.push(_sender.segments_out().front());
+        _sender.segments_out().pop();
     }
 }

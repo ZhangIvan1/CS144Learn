@@ -25,9 +25,10 @@ class TCPConnection {
     size_t _time_last_segment_received{0};
     bool _statue{false};
 
-    void sent_rst();
+    void send_rst();
     void set_error();
     void response_to_keepalive(TCPSegment seg);
+    void send_out();
 
   public:
     //! \name "Input" interface for the writer
