@@ -16,10 +16,12 @@ void TCPReceiver::segment_received(const TCPSegment &seg) {
         _isn = seg.header().seqno;
         _syn = seg.header().syn;
     } else if (!_syn) return;
+
     _reassembler.push_substring(seg.payload().copy(),
                                 unwrap(seg.header().seqno, _isn, _reassembler.stream_out().bytes_written() + 1) - 1 +
                                     seg.header().syn,
                                 seg.header().fin);
+
     if (seg.header().fin) _fin = seg.header().fin;
 }
 

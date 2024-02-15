@@ -124,6 +124,8 @@ class TCPSender {
     //!@}
 
     bool is_syn_avaliable() const { return _status == CLOSED || _status == SYN_SENT; }
+
+    bool is_fin_sent() const { return _status == FIN_SENT; }
 };
 
 #endif  // SPONGE_LIBSPONGE_TCP_SENDER_HH

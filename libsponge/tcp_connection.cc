@@ -35,15 +35,17 @@ void TCPConnection::segment_received(const TCPSegment &seg) {
         return;
     }
 
-    if (seg.payload().size()) {
+    if (seg.payload().size() || seg.header().fin) {
         _receiver.segment_received(seg);
         TCPSegment ackSeg;
         ackSeg.header().ack = true;
         _sender.send_empty_segment(ackSeg);
-        return;
+        //        return;
     }
 
     response_to_keepalive(seg);
+
+    send_out();
 }
 
 bool TCPConnection::active() const { return _statue; }
@@ -64,18 +66,23 @@ void TCPConnection::tick(const size_t ms_since_last_tick) {
 
     if (_sender.consecutive_retransmissions() > TCPConfig::MAX_RETX_ATTEMPTS) {
         send_rst();
+        send_out();
         return;
     }
+
+    try_clean_close();
 }
 
 void TCPConnection::end_input_stream() {
     _sender.stream_in().end_input();
+    _sender.fill_window();
     send_out();
 }
 
 void TCPConnection::connect() {
     if (!_statue && _sender.is_syn_avaliable()) {
         _statue = true;
+        _sender.fill_window();
         send_out();
     }
 }
@@ -87,6 +94,7 @@ TCPConnection::~TCPConnection() {
 
             // Your code here: need to send a RST segment to the peer
             send_rst();
+            send_out();
         }
     } catch (const exception &e) {
         std::cerr << "Exception destructing TCP FSM: " << e.what() << std::endl;
@@ -96,6 +104,11 @@ TCPConnection::~TCPConnection() {
 void TCPConnection::set_error() {
     _sender.stream_in().set_error();
     _receiver.stream_out().set_error();
+
+    while (!_sender.segments_out().empty()) {
+        _segments_out.push(_sender.segments_out().front());
+        _sender.segments_out().pop();
+    }
 }
 
 void TCPConnection::send_rst() {
@@ -115,9 +128,19 @@ void TCPConnection::response_to_keepalive(TCPSegment seg) {
 }
 
 void TCPConnection::send_out() {
-    _sender.fill_window();
     while (!_sender.segments_out().empty()) {
         _segments_out.push(_sender.segments_out().front());
         _sender.segments_out().pop();
     }
+}
+
+void TCPConnection::try_clean_close() {
+    if (!_sender.is_fin_sent())
+        return;
+
+    if (!_linger_statue)
+        _linger_time = _time_passed;
+    _linger_statue = _sender.is_fin_sent() && _receiver.is_fin_recv();
+
+    _statue = (_time_passed - _linger_time) > 10 * _cfg.rt_timeout;
 }

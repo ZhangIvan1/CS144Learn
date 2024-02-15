@@ -24,11 +24,14 @@ class TCPConnection {
     size_t _time_passed{0};
     size_t _time_last_segment_received{0};
     bool _statue{false};
+    bool _linger_statue{false};
+    size_t _linger_time{0};
 
     void send_rst();
     void set_error();
     void response_to_keepalive(TCPSegment seg);
     void send_out();
+    void try_clean_close();
 
   public:
     //! \name "Input" interface for the writer

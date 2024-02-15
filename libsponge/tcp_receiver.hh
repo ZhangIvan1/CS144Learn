@@ -65,6 +65,8 @@ class TCPReceiver {
     ByteStream &stream_out() { return _reassembler.stream_out(); }
     const ByteStream &stream_out() const { return _reassembler.stream_out(); }
     //!@}
+
+    bool is_fin_recv() const { return _fin; }
 };
 
 #endif  // SPONGE_LIBSPONGE_TCP_RECEIVER_HH
